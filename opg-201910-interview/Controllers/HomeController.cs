@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+
+using opg_201910_interview.Helpers;
 using opg_201910_interview.Models;
 
 namespace opg_201910_interview.Controllers
@@ -20,7 +23,9 @@ namespace opg_201910_interview.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            List<Client> clientFiles = ClientHelper.GetClientFiles(FileHelper.GetClientXmlFiles());
+            
+            return View(clientFiles);
         }
 
         public IActionResult Privacy()
