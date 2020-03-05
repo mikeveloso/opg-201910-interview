@@ -1,4 +1,8 @@
-﻿@{
+﻿@using opg_201910_interview.Models
+
+@model List<Client>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,3 +10,22 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<div class="xml-file-wrapper">
+    @{
+        foreach (Client client in Model)
+        { 
+            <div class="xml-file-container">
+                <h2>@client.ClientName</h2>
+                <ul>
+                    @foreach (ClientFile clientFile in client.ClientFiles)
+                    { 
+                        <li>@clientFile.FileName</li>
+                    }
+                </ul>
+            </div>
+        }
+    }
+</div>
+
+

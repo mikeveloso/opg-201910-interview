@@ -13,17 +13,21 @@ namespace opg_201910_interview
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        public IWebHostEnvironment CurrentEnvironment { get; }
 
         public IConfiguration Configuration { get; }
+
+        public Startup(IWebHostEnvironment env, IConfiguration configuration)
+        {
+            Configuration = configuration;
+            CurrentEnvironment = env;
+            OpgHostEnvironment.Configure(env);
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            AppServiceConfiguration.Configure(services, Configuration);            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,6 +41,7 @@ namespace opg_201910_interview
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
             app.UseStaticFiles();
 
             app.UseRouting();
